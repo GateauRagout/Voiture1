@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Découvrez tout ce qu'il faut savoir sur les voitures de luxe : caractéristiques, marques, tendances du marché et plus encore.">
+    <title>Voitures de Luxe</title>
+    <style>
+        /* Polices et styles globaux */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #0a0a0a; /* Fond sombre */
+            color: #e2e2e2;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Centrage global du contenu */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding-top: 80px;
+            text-align: center;
+        }
+
+        /* En-tête fixe */
+        header {
+            background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
+            color: #fff;
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Centrer le titre */
+        .title-container {
+            text-align: center;
+            margin-top: 100px; /* pour éviter que le titre soit caché par le header */
+        }
+
+        .title-container h1 {
+            font-size: 3em;
+            color: #d4af37;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            position: relative;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            margin: 0 10px;
+            font-size: 18px;
+            border-radius: 5px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #d4af37;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            background-color: #d4af37;
+            color: #0a0a0a;
+        }
+
+        /* Menu Hamburger */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .menu-toggle span {
+            background-color: #fff;
+            height: 3px;
+            width: 25px;
+            margin: 4px 0;
+            transition: 0.3s;
+        }
+
+        /* Menu hamburger actif */
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(-45deg);
+            position: relative;
+            top: 7px;
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(45deg);
+            position: relative;
+            top: -7px;
+        }
+
+        /* Menu mobile */
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                background-color: #444;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                padding: 10px 0;
+            }
+
+            .navbar nav.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+                position: absolute;
+                right: 20px;
+                top: 20px;
+            }
+        }
+
+        /* Contenu principal */
+        main {
+            padding: 60px 20px 30px;
+            max-width: 1200px;
+            width: 100%;
+            background-color: #1f1f1f;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            margin-top: 100px; /* espace pour le header fixe */
+            position: relative;
+            z-index: 999;
+        }
+
+        .cta-button {
+            background-color: #d4af37;
+            color: white;
+            padding: 15px 30px;
+            font-size: 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .cta-button:hover {
+            background-color: #b08e22;
+            transform: scale(1.1);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .brand-section, .car-details {
+            background-color: #333;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .brand-section:hover, .car-details:hover {
+            transform: translateY(-10px);
+        }
+
+        .brand-section h3, .car-details h4 {
+            color: #d4af37;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .brand-section ul, .car-details ul {
+            color: #b0b0b0;
+            font-size: 1.1em;
+            padding-left: 20px;
+        }
+
+        .brand-section ul li, .car-details ul li {
+            margin-bottom: 10px;
+        }
+
+        /* Styles pour les petites tailles d'écran */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .navbar h1 {
+                font-size: 2.2em;
+            }
+
+            nav a {
+                margin: 10px 0;
+                font-size: 16px;
+                padding: 10px 15px;
+            }
+
+            main {
+                padding: 50px 20px;
+            }
+
+            .cta-button {
+                font-size: 18px;
+                padding: 12px 25px;
+            }
+
+            .brand-section, .car-details {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 2.4em;
+            }
+
+            .brand-section h3, .car-details h4 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="title-container">
+        <h1>Voitures de Luxe</h1>
+    </div>
+
+    <div class="navbar">
+        <!-- Icône du menu hamburger -->
+        <div class="menu-toggle" id="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Menu de navigation -->
+        <nav>
+            <a href="Ferrari.html">Ferrari</a>
+            <a href="Rolls Royce.html">Rolls-Royce</a>
+            <a href="buggati.html">Bugatti</a>
+            <a href="Mercedes.html">Mercedes</a>
+            <a href="audi.html">Audi</a>
+            <a href="page Porsche.html">Porsche</a>
+            <a href="page lamborghini .html">Lamborghini</a>
+            <a href="page Maserati.html">Maserati</a>
+        </nav>
+    </div>
+</header>
+
+<div class="container">
+    <main>
+
+        <div class="brand-section">
+            <h3>Caractéristiques des Voitures de Luxe</h3>
+            <ul>
+                <li>Confort et sécurité de haut niveau</li>
+                <li>Nouvelles technologies embarquées</li>
+                <li>Esthétique raffinée et matériaux nobles</li>
+                <li>Performances exceptionnelles</li>
+                <li>Prix élevé dû à la qualité de fabrication</li>
+            </ul>
+        </div>
+
+        <div class="brand-section">
+            <h3>Les Marques de Voitures de Luxe</h3>
+            <ul>
+                <li>Ferrari</li>
+                <li>Rolls-Royce</li>
+                <li>Bugatti</li>
+                <li>Mercedes-Benz</li>
+                <li>Audi</li>
+                <li>Tesla (véhicules électriques de luxe)</li>
+            </ul>
+        </div>
+
+        <div class="car-details">
+            <h4>Location de Voitures de Luxe</h4>
+            <p>La location de voitures de luxe permet de vivre une expérience inoubliable. Découvrez comment louer une voiture de prestige :</p>
+            <ul>
+                <li>Location via agences spécialisées</li>
+                <li>Location pour particuliers ou professionnels</li>
+                <li>Les prix varient selon le modèle et la durée de location</li>
+            </ul>
+        </div>
+
+        <!-- Ajout du lien de réservation -->
+        <a href="https://www.luxury-club.fr" class="cta-button" target="_blank">Réserver Maintenant</a>
+    </main>
+</div>
+
+<!-- Script JS -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const menuToggle = document.getElementById("menu-toggle");
+        const nav = document.querySelector("nav");
+
+        menuToggle.addEventListener("click", function() {
+            nav.classList.toggle("active");
+            menuToggle.classList.toggle("active");
+        });
+    });
+</script>
+
+</body>
+</html>
